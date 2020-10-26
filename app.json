@@ -1,0 +1,12 @@
+{
+  "name": "conFusionRN",
+  "displayName": "conFusionRN",
+  "expo": {
+    "name": "conFusionRN",
+    "slug": "conFusionRN",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
