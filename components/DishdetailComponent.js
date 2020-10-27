@@ -34,11 +34,11 @@ export default class Dishdetail extends React.Component {
     };
 
     static navigationOptions = {
-        title: 'Dish detail'
+        title: 'Dish Details'
     }
 
     render() {
-        const dishId = this.props.navigation.getParam('dishId', '');
+        const { dishId } = this.props.route.params;
         return (
             <RenderDish dish={this.state.dishes[+dishId]} />
         );

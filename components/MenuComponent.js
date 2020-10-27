@@ -31,6 +31,7 @@ export default class Menu extends React.Component {
                     source={require('./images/uthappizza.png')} />
             );
         }
+        const { navigate } = this.props.navigation;
 
         const renderMenuItem = ({ item, index }) => {
             return (
@@ -46,7 +47,6 @@ export default class Menu extends React.Component {
             );
         }
 
-        const { navigate } = this.props.navigation;
 
         return (
             <FlatList data={this.state.dishes}

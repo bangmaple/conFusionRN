@@ -1,14 +1,34 @@
 import React from 'react'
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
-import { SafeAreaView, View, Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
+import { SafeAreaView, View, Platform, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { Constants } from 'react-native-unimodules';
-import {createDrawerNavigator} from 'react-navigation-drawer';
 import Home from './HomeComponent';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createStackNavigator } from '@react-navigation/stack';
+import Test from './TestComponent';
 
-const MenuNavigator = createStackNavigator(
+const Stack = createStackNavigator();
+const NewMenuNavigator = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Menu"
+             screenOptions={{headerStyle: {
+                 backgroundColor: '#512DA8'
+             },
+             headerTintColor: '#fff',
+             headerTitleStyle: {
+                 color: '#fff'
+             }}}>
+                <Stack.Screen name="Menu" component={Menu} />
+                <Stack.Screen name="Dishdetail" component={Dishdetail} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
+/*const MenuNavigator = createStackNavigator(
     {
         Menu: { screen: Menu },
         Dishdetail: { screen: Dishdetail }
@@ -25,10 +45,10 @@ const MenuNavigator = createStackNavigator(
             }
         }
     }
-);
+);*/
 
-const HomeNavigator = createStackNavigator({
-    Home: {screen: Home}
+/*const HomeNavigator = createStackNavigator({
+    Home: { screen: Home }
 }, {
     navigationOptions: {
         headerStyle: {
@@ -39,9 +59,32 @@ const HomeNavigator = createStackNavigator({
             color: '#fff'
         }
     }
-});
+});*/
 
-const MainNavigator = createDrawerNavigator({
+const Drawer = createDrawerNavigator();
+
+/*
+   <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+*/
+const NewMainNavigator = () => {
+    return (
+        <NavigationContainer>
+            <Drawer.Navigator
+                drawerStyle={{ backgroundColor: '#D1C4E9' }}>
+                <Drawer.Screen name='Home' options={{ drawerLabel: 'hi' }}
+                    component={Home} />
+                <Drawer.Screen name='Menu'
+                    component={Menu} />
+            </Drawer.Navigator>
+        </NavigationContainer>);
+}
+
+/*const MainNavigator = createDrawerNavigator({
     Home: {
         screen: HomeNavigator,
         navigationOptions: {
@@ -57,15 +100,15 @@ const MainNavigator = createDrawerNavigator({
     }
 }, {
     drawerBackgroundColor: '#D1C4E9'
-})
+})*/
 
-const AppMenuNavigator = createAppContainer(MenuNavigator)
-const AppMainNavigator = createAppContainer(MainNavigator);
+const AppMenuNavigator = createAppContainer(NewMenuNavigator)
+const AppMainNavigator = createAppContainer(NewMainNavigator);
 
 export default function Main() {
     return (
-        <SafeAreaView style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight}}>
-            <AppMainNavigator />
-        </SafeAreaView>
+        <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
+            <NewMenuNavigator />
+        </View>
     );
 }
